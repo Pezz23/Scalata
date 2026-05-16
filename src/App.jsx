@@ -198,18 +198,7 @@ export default function App() {
                 className="w-full bg-black/50 border border-gray-700 rounded-xl px-4 py-3 text-white text-lg focus:outline-none focus:border-amber-500 transition-colors"
               />
             </div>
-            <div>
-              <label className="text-[10px] text-gray-500 uppercase tracking-widest block mb-1.5">
-                % profitto → Tesoretto: <span className="text-emerald-400 font-bold">{s.vaultPct}%</span>
-              </label>
-              <input type="range" min={10} max={90} step={5} value={s.vaultPct}
-                onChange={(e) => setS((p) => ({ ...p, vaultPct: Number(e.target.value) }))}
-                className="w-full accent-emerald-500"
-              />
-              <div className="flex justify-between text-[10px] text-gray-600 mt-0.5">
-                <span>10% aggressivo</span><span>90% conservativo</span>
-              </div>
-            </div>
+
             {err && <div className="text-red-400 text-xs">{err}</div>}
             <button onClick={handleStart}
               className="mt-1 w-full bg-amber-600 hover:bg-amber-500 active:scale-95 text-white font-black py-3 rounded-xl tracking-[0.2em] uppercase text-sm transition-all">
@@ -311,6 +300,20 @@ export default function App() {
                 {err && <div className="text-red-400 text-xs mt-1.5">{err}</div>}
               </div>
             )}
+
+            {/* % Tesoretto — modificabile ad ogni puntata */}
+            <div className="bg-black/20 rounded-xl px-4 py-3 flex flex-col gap-1.5 border border-gray-700/20">
+              <label className="text-[10px] text-gray-500 uppercase tracking-widest">
+                % profitto → Tesoretto: <span className="text-emerald-400 font-bold">{s.vaultPct}%</span>
+              </label>
+              <input type="range" min={0} max={100} step={5} value={s.vaultPct}
+                onChange={(e) => setS((p) => ({ ...p, vaultPct: Number(e.target.value) }))}
+                className="w-full accent-emerald-500"
+              />
+              <div className="flex justify-between text-[10px] text-gray-600">
+                <span>0% rigioca tutto</span><span>100% incassa tutto</span>
+              </div>
+            </div>
 
             {s.phase === "result" && s.odds && (
               <div className="bg-black/30 rounded-xl p-3 flex flex-col gap-1.5 text-xs border border-gray-700/30">
